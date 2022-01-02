@@ -1,0 +1,41 @@
+{
+  "name": "movie-app",
+  "version": "1.0.0",
+  "description": "take-home-assignment-by-stanly",
+  "main": "index.js",
+  "scripts": {
+    "client": "cd client && npm start",
+    "server": "ts-node-dev --transpile-only server/app.ts",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint client/src && eslint server"
+  },
+  "author": "jaykim",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
+    "@types/express": "^4.17.13",
+    "@types/node": "^17.0.5",
+    "@typescript-eslint/eslint-plugin": "^5.8.1",
+    "@typescript-eslint/parser": "^5.8.1",
+    "concurrently": "^6.5.1",
+    "eslint": "^8.5.0",
+    "eslint-plugin-import": "^2.25.3",
+    "ts-node": "^10.4.0",
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.5.4"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^10.0.0",
+    "eslint-plugin-react": "^7.28.0",
+    "express": "^4.17.2",
+    "express-graphql": "^0.12.0",
+    "graphql": "^16.2.0",
+    "pg": "^8.7.1",
+    "pg-hstore": "^2.3.4",
+    "reflect-metadata": "^0.1.13",
+    "sequelize": "^6.12.4",
+    "sequelize-typescript": "^2.1.1"
+  }
+}
