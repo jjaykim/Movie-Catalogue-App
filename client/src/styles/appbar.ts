@@ -76,10 +76,10 @@ export const AppBarStyles = makeStyles((theme: Theme) =>
     button: {
       minWidth: '6.5rem',
       color: 'white',
-      backgroundColor: '#F17F42',
+      backgroundColor: '#3748a3',
       borderRadius: '4px',
       '&:hover': {
-        backgroundColor: '#F17F42',
+        backgroundColor: '#3748a3',
       },
     },
   })

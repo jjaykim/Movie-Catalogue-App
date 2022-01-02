@@ -11,12 +11,10 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import PersonAddIcon from '@material-ui/icons/PersonAdd';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Button from '@material-ui/core/Button';
+import AccountCircle from '@material-ui/icons/AccountCircle';
 
-import { SideDrawer } from './components/drawer/Drawer';
+import { SideDrawer } from './components/Drawer';
 import { AppBarStyles } from '../../styles/appbar';
 
 interface NavigationProps {
@@ -69,7 +67,6 @@ const UnstyledNavigation: FunctionComponent<NavigationProps> = ({
           </Box>
 
           <Button className={classes.button} component={RouteLink} to="/login">
-            <ExitToAppIcon />
             <Box pl="0.4rem" fontWeight="bold">
               Login
             </Box>
