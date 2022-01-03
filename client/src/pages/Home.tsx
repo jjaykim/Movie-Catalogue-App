@@ -6,8 +6,7 @@ import Box from '@material-ui/core/Box';
 import axios from 'axios';
 
 import { HomeContent } from '../components/home_content/HomeContent';
-import { UPCOMING_URL, IMAGE_BASE_URL } from '../Config';
-import e from 'express';
+import { UPCOMING_URL } from '../Config';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
