@@ -18,20 +18,27 @@ const UnstyledSearch: FunctionComponent<SearchProps> = ({
   searchInput,
 }) => {
   const [searchedMovie, setSearchedMovie] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    setLoading(true);
     setError(null);
 
     axios
       .get(`${SEARCH_URL}${searchInput}`)
       .then((res) => {
         setSearchedMovie({ ...res.data.results });
+        setLoading(false);
       })
       .catch((err) => {
         setError(err);
       });
   }, [searchInput]);
+
+  if (loading) {
+    return <Box>Loading...</Box>;
+  }
 
   if (error) {
     return <Box>{error}</Box>;
