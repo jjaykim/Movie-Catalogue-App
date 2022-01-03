@@ -1,10 +1,12 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import { withTheme } from '@material-ui/core/styles';
 import styled from 'styled-components';
-
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-
 import Box from '@material-ui/core/Box';
+import axios from 'axios';
+
+import { HomeContent } from '../components/home_content/HomeContent';
+import { UPCOMING_URL } from '../Config';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -13,14 +15,12 @@ const useStyles = makeStyles((theme: Theme) =>
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
       }),
-      // marginLeft: 30,
     },
     contentShift: {
       transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen,
       }),
-      // marginLeft: 250,
     },
   })
 );
@@ -35,16 +35,37 @@ const UnstyleHome: FunctionComponent<HomeProps> = ({
   drawerOpen,
 }) => {
   const classes = useStyles();
+  const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    setError(null);
+    setLoading(true);
+
+    axios
+      .get(UPCOMING_URL + '1')
+      .then((res) => {
+        setMovies(res.data.results);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError(err);
+      });
+  }, []);
+
+  if (loading && !movies) {
+    return <Box>Loading...</Box>;
+  }
+
+  if (error) {
+    return <Box>{error}</Box>;
+  }
 
   return (
     <>
       <Box className={drawerOpen ? classes.contentShift : classes.content}>
-        <Box>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi quis qui
-          magni minus repudiandae. Nihil reprehenderit totam facilis, explicabo
-          officia quidem quasi eos reiciendis autem, maiores perferendis atque
-          ut commodi.
-        </Box>
+        <HomeContent movies={movies} />
       </Box>
     </>
   );

@@ -1,8 +1,8 @@
 import React, { FunctionComponent, useState, useEffect } from 'react';
-import { Switch, Route, BrowserRouter, Redirect } from 'react-router-dom';
+import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { ApolloProvider, useQuery } from '@apollo/client';
+import { ApolloProvider } from '@apollo/client';
 import Box from '@material-ui/core/Box';
 
 import { client } from './graphql/client';
@@ -46,7 +46,7 @@ const App: FunctionComponent = () => {
 
             <Switch>
               <>
-                <Box pt="5rem" marginLeft={drawerOpen ? '250px' : '30px'}>
+                <Box pt="5rem" marginX={drawerOpen ? '280px' : '32px'}>
                   <Route exact path="/">
                     <Home drawerOpen={drawerOpen} />
                   </Route>
@@ -58,8 +58,6 @@ const App: FunctionComponent = () => {
                   <Route path="/register">
                     <Register />
                   </Route>
-
-                  <Redirect from="*" to="/" />
                 </Box>
               </>
             </Switch>
