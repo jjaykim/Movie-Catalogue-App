@@ -4,8 +4,10 @@ import React, {
   useMemo,
   useEffect,
   ChangeEvent,
+  useCallback,
 } from 'react';
-import { Link as RouteLink } from 'react-router-dom';
+import { Link as RouteLink, useHistory } from 'react-router-dom';
+import { useMutation } from '@apollo/client';
 import { withTheme } from '@material-ui/core/styles';
 import styled from 'styled-components';
 import Box from '@material-ui/core/Box';
@@ -15,22 +17,56 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 import { LoginInput } from '../types/login';
+import {
+  LOGIN_USER,
+  LoginData,
+  LoginDataInput,
+} from '../graphql/login.mutation';
 
 interface LoginProps {
   className?: string;
-  onAdd: (user: LoginInput) => Promise<void>;
+  onAdd: (status: string) => Promise<void>;
 }
 
-const UnstyledLogin: FunctionComponent<LoginProps> = ({ className }) => {
+const UnstyledLogin: FunctionComponent<LoginProps> = ({ className, onAdd }) => {
+  const history = useHistory();
   const [loginInfo, setLoginInfo] = useState<LoginInput>({
     email: '',
     password: '',
   });
-  const [vaildEmail, setVaildEmail] = useState('');
+  const [validEmail, setValidEmail] = useState('');
+  const [loginUserMut] = useMutation<LoginData, LoginDataInput>(LOGIN_USER);
+
+  const loginUser = useCallback(
+    async (loginInfo: LoginInput) => {
+      try {
+        const res = await loginUserMut({
+          variables: {
+            email: loginInfo.email,
+            password: loginInfo.password,
+          },
+        });
+
+        if (res.data?.loginUser) {
+          const account =
+            res.data.loginUser.firstName[0].toUpperCase() +
+            '.' +
+            res.data.loginUser.lastName;
+
+          void onAdd(account);
+          history.replace({ pathname: '/' });
+          return;
+        }
+      } catch (e) {
+        console.info(e);
+      }
+    },
+    [loginUserMut] //eslint-disable-line react-hooks/exhaustive-deps
+  );
 
   const isEntered = useMemo(
-    () => !!loginInfo.email && !!loginInfo.password && !vaildEmail,
-    [loginInfo, vaildEmail]
+    () => !!loginInfo.email && !!loginInfo.password && !validEmail,
+    [loginInfo, validEmail]
   );
 
   useEffect(
@@ -67,15 +103,14 @@ const UnstyledLogin: FunctionComponent<LoginProps> = ({ className }) => {
                 required
                 label="Email"
                 type="email"
-                aria-label="Email"
                 color="secondary"
                 fullWidth
-                helperText={vaildEmail}
+                helperText={validEmail}
                 value={loginInfo.email}
                 onChange={(evt: ChangeEvent<HTMLInputElement>) => {
                   const email = evt.target.value;
 
-                  setVaildEmail(
+                  setValidEmail(
                     !/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/.test(email)
                       ? 'Please enter valid email'
                       : ''
@@ -94,14 +129,13 @@ const UnstyledLogin: FunctionComponent<LoginProps> = ({ className }) => {
                 required
                 label="Password"
                 type="password"
-                aria-label="Email"
                 color="secondary"
                 fullWidth
                 value={loginInfo.password}
                 onChange={(evt: ChangeEvent<HTMLInputElement>) => {
                   setLoginInfo({
                     ...loginInfo,
-                    password: evt.target.value,
+                    password: evt.target.value.trim(),
                   });
                 }}
               />
@@ -120,6 +154,7 @@ const UnstyledLogin: FunctionComponent<LoginProps> = ({ className }) => {
                 disabled={!isEntered}
                 onClick={(evt) => {
                   evt.preventDefault();
+                  loginUser(loginInfo);
                 }}
               >
                 <Box className="boldText">Login</Box>

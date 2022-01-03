@@ -30,7 +30,10 @@ export const loginUser = {
         throw 'Password does not match!';
       }
 
-      return user;
+      if (user && checkPassword) {
+        console.info('Login Successful');
+        return user;
+      }
     } catch (err) {
       console.info(err);
     }
