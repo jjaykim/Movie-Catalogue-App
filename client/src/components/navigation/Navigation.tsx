@@ -8,12 +8,11 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Box from '@material-ui/core/Box';
-import SearchIcon from '@material-ui/icons/Search';
-import InputBase from '@material-ui/core/InputBase';
 import Button from '@material-ui/core/Button';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 
 import { SideDrawer } from './components/Drawer';
+import { SearchBar } from './components/SearchBar';
 import { AppBarStyles } from '../../styles/appbar';
 
 interface NavigationProps {
@@ -21,6 +20,7 @@ interface NavigationProps {
   drawerOpen: boolean;
   statusLogin: string;
   onAdd: () => Promise<void>;
+  onSearch: (input: string) => Promise<void>;
 }
 
 const UnstyledNavigation: FunctionComponent<NavigationProps> = ({
@@ -28,6 +28,7 @@ const UnstyledNavigation: FunctionComponent<NavigationProps> = ({
   statusLogin,
   drawerOpen,
   onAdd,
+  onSearch,
 }) => {
   const classes = AppBarStyles();
 
@@ -51,19 +52,7 @@ const UnstyledNavigation: FunctionComponent<NavigationProps> = ({
 
           <Box className={classes.grow} />
 
-          <Box className={classes.search}>
-            <Box className={classes.searchIcon}>
-              <SearchIcon />
-            </Box>
-
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-            />
-          </Box>
+          <SearchBar onSearch={onSearch} />
 
           {!statusLogin ? (
             <Button

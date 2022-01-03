@@ -3,6 +3,7 @@ import { withTheme } from '@material-ui/core/styles';
 import styled from 'styled-components';
 import Box from '@material-ui/core/Box';
 import map from 'lodash/map';
+import orderBy from 'lodash/orderBy';
 
 import { Poster } from '../poster/Poster';
 
@@ -16,7 +17,9 @@ const UnstyledHomeContent: FunctionComponent<HomeContentProps> = ({
   movies,
 }) => {
   const newMovies = useMemo(() => {
-    return { ...movies };
+    const convert_movies = { ...movies };
+
+    return orderBy(convert_movies, ['release_date'], ['desc']);
   }, [movies]);
 
   if (!movies) {
@@ -46,23 +49,4 @@ const UnstyledHomeContent: FunctionComponent<HomeContentProps> = ({
   );
 };
 
-export const HomeContent = withTheme(styled(UnstyledHomeContent)`
-  .card-action {
-    cursor: pointer;
-    padding: 2px;
-    border-radius: 16px;
-  }
-
-  .card {
-    min-width: 19rem;
-    max-width: 19rem;
-    min-height: 41rem;
-    max-height: 41rem;
-    background-color: #424242;
-    border-radius: 16px;
-  }
-
-  .card-content {
-    color: white;
-  }
-`);
+export const HomeContent = withTheme(styled(UnstyledHomeContent)``);

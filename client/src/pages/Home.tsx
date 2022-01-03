@@ -63,11 +63,9 @@ const UnstyleHome: FunctionComponent<HomeProps> = ({
   }
 
   return (
-    <>
-      <Box className={drawerOpen ? classes.contentShift : classes.content}>
-        <HomeContent movies={movies} />
-      </Box>
-    </>
+    <Box className={drawerOpen ? classes.contentShift : classes.content}>
+      <HomeContent movies={movies} />
+    </Box>
   );
 };
 
