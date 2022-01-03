@@ -39,6 +39,7 @@ const UnstyledSideDrawer: FunctionComponent<DrawerProps> = ({
   drawerOpen,
 }) => {
   const classes = useStyles();
+
   return (
     <Box className={className}>
       <Drawer

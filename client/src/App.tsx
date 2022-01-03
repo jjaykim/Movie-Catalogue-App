@@ -46,7 +46,7 @@ const App: FunctionComponent = () => {
 
             <Switch>
               <>
-                <Box pt="5rem" marginLeft={drawerOpen ? '250px' : '30px'}>
+                <Box pt="5rem" marginX={drawerOpen ? '280px' : '32px'}>
                   <Route exact path="/">
                     <Home drawerOpen={drawerOpen} />
                   </Route>
@@ -58,8 +58,6 @@ const App: FunctionComponent = () => {
                   <Route path="/register">
                     <Register />
                   </Route>
-
-                  <Redirect from="*" to="/" />
                 </Box>
               </>
             </Switch>
