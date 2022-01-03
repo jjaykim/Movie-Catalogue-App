@@ -15,6 +15,7 @@ export const AppBarStyles = makeStyles((theme: Theme) =>
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
       }),
+      maxHeight: '5vh',
     },
     appBarShift: {
       width: `calc(100% - ${drawerWidth}px)`,

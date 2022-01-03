@@ -3,7 +3,7 @@ import { GraphQLObjectType, GraphQLSchema } from 'graphql';
 // Impoert Queries
 import { getUsers } from './queries/getUsers';
 // Import Mutations
-import { createUser } from './mutatons/createUser';
+import { registerUser } from './mutatons/registerUser';
 import { loginUser } from './mutatons/loginUser';
 
 // Queries
@@ -18,7 +18,7 @@ const RootQuery = new GraphQLObjectType({
 const Mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: {
-    createUser,
+    registerUser,
     loginUser,
   },
 });

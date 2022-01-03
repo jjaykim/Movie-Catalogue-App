@@ -20,11 +20,13 @@ import { AppBarStyles } from '../../styles/appbar';
 interface NavigationProps {
   className?: string;
   drawerOpen: boolean;
+  statusLogin: string;
   onAdd: () => Promise<void>;
 }
 
 const UnstyledNavigation: FunctionComponent<NavigationProps> = ({
   className,
+  statusLogin,
   drawerOpen,
   onAdd,
 }) => {
@@ -44,11 +46,9 @@ const UnstyledNavigation: FunctionComponent<NavigationProps> = ({
             <MenuIcon />
           </IconButton>
 
-          <RouteLink to="/" className="routerLink">
-            <Typography className="boldText" variant="h6">
-              MEOBOLLAE
-            </Typography>
-          </RouteLink>
+          <Button component={RouteLink} to="/">
+            MEOBOLLAE
+          </Button>
 
           <Box className={classes.grow} />
 
@@ -66,17 +66,28 @@ const UnstyledNavigation: FunctionComponent<NavigationProps> = ({
             />
           </Box>
 
-          <Button className={classes.button} component={RouteLink} to="/login">
-            <Box pl="0.4rem" fontWeight="bold">
-              Login
-            </Box>
-          </Button>
-
-          {/* <div className={classes.sectionDesktop}>
-            <IconButton aria-haspopup="true" color="inherit">
+          {!statusLogin ? (
+            <Button
+              className={classes.button}
+              component={RouteLink}
+              to="/login"
+            >
+              <Box pl="0.4rem" fontWeight="bold">
+                Login
+              </Box>
+            </Button>
+          ) : (
+            <IconButton
+              edge="start"
+              color="inherit"
+              className={classes.menuButton}
+            >
               <AccountCircle />
+              <Box fontSize="1.1rem" className="boldText" ml={1}>
+                {statusLogin}
+              </Box>
             </IconButton>
-          </div> */}
+          )}
         </Toolbar>
       </AppBar>
 
@@ -85,4 +96,10 @@ const UnstyledNavigation: FunctionComponent<NavigationProps> = ({
   );
 };
 
-export const Navigation = withTheme(styled(UnstyledNavigation)``);
+export const Navigation = withTheme(styled(UnstyledNavigation)`
+  .MuiButton-label {
+    color: white;
+    font-weight: bold;
+    font-size: large;
+  }
+`);

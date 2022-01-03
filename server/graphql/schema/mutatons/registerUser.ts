@@ -8,7 +8,7 @@ interface Args {
   [key: string]: string;
 }
 
-export const createUser = {
+export const registerUser = {
   type: UserType,
   args: {
     firstName: { type: new GraphQLNonNull(GraphQLString) },
