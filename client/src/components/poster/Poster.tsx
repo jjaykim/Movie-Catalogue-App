@@ -62,10 +62,14 @@ const UnstyledPoster: FunctionComponent<PosterProps> = ({
               </Box>
             </Box>
 
-            <CardMedia
-              image={`${IMAGE_BASE_URL}w1280${movie.backdrop_path}`}
-              component="img"
-            />
+            <Box minHeight="171px" maxHeight="171px" overflow="hidden">
+              <CardMedia
+                image={`${IMAGE_BASE_URL}w1280${
+                  movie.backdrop_path ? movie.backdrop_path : movie.poster_path
+                }`}
+                component="img"
+              />
+            </Box>
 
             <CardContent className="card-content">
               <Box display="flex" flexDirection="row" mt={1}>
@@ -104,8 +108,8 @@ export const Poster = withTheme(styled(UnstyledPoster)`
   .card {
     min-width: 19rem;
     max-width: 19rem;
-    min-height: 41rem;
-    max-height: 41rem;
+    min-height: 31rem;
+    max-height: 31rem;
     background-color: #424242;
     border-radius: 16px;
   }

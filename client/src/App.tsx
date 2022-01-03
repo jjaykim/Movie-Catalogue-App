@@ -11,11 +11,13 @@ import { Home } from './pages/Home';
 import { Login } from './pages/Login';
 import { Navigation } from './components/navigation/Navigation';
 import { Register } from './pages/Register';
+import { Search } from './pages/Search';
 
 const App: FunctionComponent = () => {
   const theme = createAppTheme();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [statusLogin, setStatusLogin] = useState('');
+  const [searchInput, setSearchInput] = useState('');
 
   useEffect(() => setStatusLogin(''), []);
 
@@ -25,6 +27,10 @@ const App: FunctionComponent = () => {
 
   const handleLogin = (status: string) => {
     setStatusLogin(status);
+  };
+
+  const handleSearch = (input: string) => {
+    setSearchInput(input);
   };
 
   return (
@@ -42,6 +48,7 @@ const App: FunctionComponent = () => {
               statusLogin={statusLogin}
               drawerOpen={drawerOpen}
               onAdd={() => handleDrawer()}
+              onSearch={(input: string) => handleSearch(input)}
             />
 
             <Switch>
@@ -58,6 +65,12 @@ const App: FunctionComponent = () => {
                   <Route path="/register">
                     <Register />
                   </Route>
+
+                  <Route path="/search">
+                    <Search searchInput={searchInput} />
+                  </Route>
+
+                  <Route path="/details"></Route>
                 </Box>
               </>
             </Switch>
