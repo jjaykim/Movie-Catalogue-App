@@ -12,6 +12,7 @@ import { Login } from './pages/Login';
 import { Navigation } from './components/navigation/Navigation';
 import { Register } from './pages/Register';
 import { Search } from './pages/Search';
+import { Details } from './pages/Details';
 
 const App: FunctionComponent = () => {
   const theme = createAppTheme();
@@ -70,7 +71,9 @@ const App: FunctionComponent = () => {
                     <Search searchInput={searchInput} />
                   </Route>
 
-                  <Route path="/details"></Route>
+                  <Route path="/details">
+                    <Details />
+                  </Route>
                 </Box>
               </>
             </Switch>
