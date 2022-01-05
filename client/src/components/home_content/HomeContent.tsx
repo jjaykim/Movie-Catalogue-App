@@ -6,6 +6,7 @@ import map from 'lodash/map';
 import orderBy from 'lodash/orderBy';
 
 import { Poster } from '../poster/Poster';
+import { MovieType } from '../../types/movie';
 
 interface HomeContentProps {
   className?: string;
@@ -16,7 +17,7 @@ const UnstyledHomeContent: FunctionComponent<HomeContentProps> = ({
   className,
   movies,
 }) => {
-  const newMovies = useMemo(() => {
+  const newMovies: MovieType[] = useMemo(() => {
     const convert_movies = { ...movies };
 
     return orderBy(convert_movies, ['release_date'], ['desc']);
@@ -42,7 +43,9 @@ const UnstyledHomeContent: FunctionComponent<HomeContentProps> = ({
 
       <Box display="flex" flexDirection="row" flexWrap="wrap" mx={3} mt={-3}>
         {map(newMovies, (movie, index) => (
-          <Poster movie={movie} index={index} />
+          <Box key={movie.id}>
+            <Poster movie={movie} index={index} />
+          </Box>
         ))}
       </Box>
     </Box>
