@@ -33,7 +33,7 @@ const UnstyledSearchBar: FunctionComponent<SearchBarProps> = ({
     if (input && !searchOn) {
       setSearchOn(true);
       history.push({ pathname: '/search' });
-    } else if (!input) {
+    } else if (!input && searchOn) {
       setSearchOn(false);
       history.goBack();
     }

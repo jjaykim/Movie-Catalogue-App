@@ -37,7 +37,7 @@ const UnstyledPoster: FunctionComponent<PosterProps> = ({
         <CardActionArea
           className="card-action"
           onClick={() => {
-            history.push({ pathname: '/login' });
+            history.push({ pathname: '/details', state: { movie: movie } });
           }}
         >
           <Card className="card">
